@@ -1,11 +1,14 @@
 import Navigation from '../components/Navigation';
-
+import Logo from '../components/Logo';
+import Countries from '../components/Countries';
 const Home = () => {
 return (
     <div className="Home">
     <Navigation />
+    <Logo />
+    <Countries />
 
-    <h1>Bonjour à vous</h1>
+    
     
 
     </div>
