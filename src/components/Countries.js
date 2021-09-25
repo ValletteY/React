@@ -1,26 +1,64 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Card from "../components/Card";
 
 const Countries = () => {
     const [data, setData] = useState([]);
-
+    const [sortedData, setSortedData] = useState([]);
+    const [playOnce, setPlayOnce] = useState(true);
+    const [rangeValues, setRangeValues] = useState(40);
+    const [selectedRadio, setSelectedRadio] = useState('');
+    const radios = ["Africa", "America", "Asia", "Europe", "Oceania"];
+ 
     useEffect(() => {
+        if (playOnce) {
         axios
         .get(
-        "https://restcountries.com/v3/all?fields=name;population;region;capital;flag"
+        "https://restcountries.com/v2/all"
         )
-        .then((res) => {
-            setData(res.data);
-        });
-            
-        }, []);
+        .then((res) => { 
+            setData(res.data); 
+            setPlayOnce(false);
+        });    
+        }
+        
+        
+        const sortedCountry = () => {
+            const countryObj = Object.keys(data).map((i) => data[i]);
+            const sortedArray = countryObj.sort((a,b) => {return b.population - a.population});
+            sortedArray.length = rangeValues;
+            setSortedData(sortedArray);
+        };
+        sortedCountry();
+        }, [data, rangeValues, playOnce]);
             
 
     return (
         <div className="countries">
+            <div className="sort-container">
+                <input type="range" min="1" max="250" value={rangeValues} onChange={(e) => setRangeValues (e.target.value)}/>
+            
+
+            <ul>
+                {radios.map((radio) => {
+                    return (<li keys={radio}>
+                        <input type="radio" value={radio} id={radio} checked={radio === selectedRadio} onChange={(e) => setSelectedRadio (e.target.value)}/>
+                        <label htmlFor={radio}> {radio} </label>
+                    </li>)
+                })}
+            </ul>
+            </div>
+            <div className="cancel">
+                {selectedRadio && (
+                <h5 onClick={() => setSelectedRadio("")}>Annuler recherche</h5>
+            )}
+      
+        </div>        
             <ul className="countries-list">
-                {data.map((country) => (
-                    <li>{country.name.common}</li>
+                {sortedData
+                .filter((country) => country.region.includes(selectedRadio))
+                .map((country) => (
+                    <Card country= {country} key={country.name}/>
                 ))}
 
             </ul>
