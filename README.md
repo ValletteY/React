@@ -6,7 +6,7 @@ Ce projet a été amorcé avec [Create React App].
 
 Dans le répertoire du projet, vous pouvez exécuter :
 
-### `npm start`
+`npm start`
 
 Exécute l'application en mode développement.\
 Ouvrez [http://localhost:3000](http://localhost:3000) pour l'afficher dans le navigateur.
@@ -17,7 +17,7 @@ Vous verrez également toutes les erreurs de charpie dans la console.
 
 Lance le lanceur de test en mode montre interactive.\
 
-### `npm run build`
+`npm run build`
 
 Construit l'application pour la production dans le dossier `build`.\
 Il regroupe correctement React en mode production et optimise la construction pour les meilleures performances.
