@@ -9,7 +9,7 @@ const Card = (props) => {
 
     return (
         <li className ="card">
-            <img src={country.flags[0]} alt = "flag" />
+            <img src={country.flag} alt = "flag" />
             <div className="data-container"> 
                 <ul>
                     <li>{country.name}</li>
